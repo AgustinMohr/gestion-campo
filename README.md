@@ -4,3 +4,4 @@
 3) Ejecutá docker compose up --build
 4) Abrí una terminal nueva
 5) Ejecutá python manage.py runserver
+6) Poné en tu navegador la dire localhost:8000/ o 
