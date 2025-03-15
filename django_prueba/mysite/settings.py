@@ -26,7 +26,7 @@ SECRET_KEY = 'y6kG2XL8lT9B8smqzvVzjF0gGpY3XnmVJd8pKlRwOpYTqsdO5D'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
  
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','0.0.0.0']
 
 
 # Application definition
@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "campo",
-    'rest_framework',
+    'campo',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME', 'postgresdb'),
+        'NAME': os.getenv('DATABASE_NAME', 'postgres-db'),
         'USER': os.getenv('DATABASE_USERNAME', 'postgres'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
-        'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DATABASE_PORT', 5432)
+        'HOST': os.getenv('DATABASE_HOST','postgresdb'),
+        'PORT': os.getenv('DATABASE_PORT','5432')
    }
 }
 
@@ -120,13 +120,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Archivos estáticos
+STATIC_URL = '/static/'
+
+# Solo en producción, si estás usando un servidor web como Nginx, Django debería usar esta configuración
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

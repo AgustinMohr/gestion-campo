@@ -1,7 +1,6 @@
-# gestion-
-1) Cloná el repo en tu pc, sale la carpeta gestion-campo 
-2) Abrí una terminal en gestion-campo/django_prueba/
-3) Ejecutá docker compose up --build
-4) Abrí una terminal nueva
-5) Ejecutá python manage.py runserver
-6) Poné en tu navegador la dire localhost:8000/ o 
+# PASOS
+1) Clonar el repo en alguna carpeta con git clone https://github.com/AgustinMohr/gestion-campo.git
+2) Abrir una terminal en la direccion /gestion-campo/django_prueba
+3) Ejecutar docker compose up --build
+4) Ir a localhost:8000/app/ en el navegador
+5) DISFRUTAR
