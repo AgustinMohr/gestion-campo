@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from rest_framework import viewsets
 from .models import Producto, MovimientoStock, Lote, Aplicacion
 from .serializers import ProductoSerializer, MovimientoStockSerializer, LoteSerializer, AplicacionSerializer
+from .forms import ProductoForm
 
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
@@ -20,14 +21,12 @@ class AplicacionViewSet(viewsets.ModelViewSet):
     queryset = Aplicacion.objects.all()
     serializer_class = AplicacionSerializer
 
+def indice(request):
+    return render(request, 'base.html')
+
 def lista_productos(request):
     productos = Producto.objects.all()
     return render(request, 'productos/lista.html', {'productos': productos})
-
-from django.shortcuts import render
-
-from django.shortcuts import render, redirect
-from .forms import ProductoForm
 
 def alta_producto(request):
     if request.method == 'POST':
@@ -41,5 +40,3 @@ def alta_producto(request):
     return render(request, 'productos/alta_producto.html', {'form': form})
 
 
-def index(request):
-    return render(request, 'base.html')

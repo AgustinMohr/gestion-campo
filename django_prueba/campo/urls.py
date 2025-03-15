@@ -12,6 +12,7 @@ router.register(r'lotes', LoteViewSet)
 router.register(r'aplicaciones', AplicacionViewSet)
 
 urlpatterns = [
+    path('',views.indice, name='indice'),
     path('productos/', views.lista_productos, name='lista_productos'),
     path('productos/alta/', views.alta_producto, name='alta_producto'), 
 ]
