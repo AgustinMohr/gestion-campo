@@ -1,0 +1,29 @@
+### Obtener lista de productos
+GET http://localhost:8000/productos/lista
+
+### Crear un nuevo producto
+POST http://localhost:8000/productos/create/
+Content-Type: application/json
+
+{
+    "nombre": "Fertilizante C",
+    "descripcion": "Mejora cultivos",
+    "unidad_medida": "kg",
+    "precio": 500,
+    "stock": 100
+}
+
+### Modificar un producto (ejemplo con id=1)
+PUT http://localhost:8000/productos/1/update/
+Content-Type: application/json
+
+{
+    "nombre": "Fertilizante C Modificado",
+    "descripcion": "Nueva fórmula",
+    "unidad_medida": "kg",
+    "precio": 550,
+    "stock": 90
+}
+
+### Eliminar un producto (ejemplo con id=1)
+DELETE http://localhost:8000/productos/1/delete/

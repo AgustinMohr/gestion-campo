@@ -6,11 +6,20 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
     descripcion = models.TextField(blank=True, null=True)
     cantidad = models.DecimalField(max_digits=10, decimal_places=2, default=0)  # Stock actual
+    fecha_vencimiento = models.DateField(blank=True, null=True)
     unidad_medida = models.CharField(max_length=50, choices=[
         ('kg', 'Kilogramos'),
         ('lt', 'Litros'),
         ('un', 'Unidades'),
     ])
+
+    # CATEGORIA = (
+    #     ('A', '10'),
+    #     ('B', '50'),
+    #     ('C', '80'),
+    #     
+    # )
+    # categoria = models.CharField(max_length=3,choices=CATEGORIA,default='A')
 
     def __str__(self):
         return f"{self.nombre} - {self.cantidad} {self.unidad_medida}"
@@ -20,8 +29,7 @@ class MovimientoStock(models.Model):
         ('ingreso', 'Ingreso'),
         ('egreso', 'Egreso'),
     ]
-
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="movimientos")
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="movimiento")
     cantidad = models.DecimalField(max_digits=10, decimal_places=2)
     tipo_movimiento = models.CharField(max_length=10, choices=TIPO_CHOICES)
     fecha = models.DateTimeField(auto_now_add=True)
