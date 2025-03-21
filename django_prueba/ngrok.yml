@@ -1,0 +1,8 @@
+version: "3"
+agent:
+    authtoken: 2uNowXs9PivLWsMNaOGpPAQKLaR_7aPXXCDEpGhbe38awAYsz
+endpoints:
+  - name: endpoint-prueba
+    url: https://ruralis.ngrok.dev
+    upstream:
+      url: http://localhost:9090

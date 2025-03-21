@@ -1,0 +1,79 @@
+services:
+  postgresdb:
+    image: postgres:17.1
+    container_name: postgres
+    environment:
+      POSTGRES_DB: $DATABASE_NAME
+      POSTGRES_USER: $DATABASE_USERNAME
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      # - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - .env
+    networks:
+      - my_network
+    
+
+  django: 
+    container_name: django-cont
+    build: .
+    depends_on:
+      - postgresdb
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+      DATABASE_ENGINE: ${DATABASE_ENGINE}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: $DATABASE_HOST #Va el nombre del contenedor de postgres.
+      DATABASE_PORT: ${DATABASE_PORT}
+    env_file:
+      - .env
+    command: >
+      bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    networks:
+      - my_network
+    volumes:
+      - .:/app
+    #   - ./campo/static:/app/static  # Sincroniza la carpeta de archivos estáticos
+    #   - ./front-end:/app/front-end  # Sincroniza la carpeta de front-end
+  
+
+
+
+#   ngrok:
+#     image: ngrok/ngrok:latest
+#     restart: unless-stopped
+#     command:
+#       - "start"
+#       - "--all"
+#       - "--config"
+#       - "/etc/ngrok.yml"
+#     volumes:
+#       - ./ngrok.yml:/etc/ngrok.yml
+#     ports:
+#       - 4040:4040
+
+  # front-end:
+  #   container_name: front-end
+  #   build: ./front-end
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     - my_network
+  #   depends_on:
+  #     - django
+  #   volumes:
+  #   - ./front-end:/app/front-end
+
+networks:
+  my_network:
+
+
+volumes:
+  postgres_data:

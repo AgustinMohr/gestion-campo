@@ -17,6 +17,10 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+SECURE_SSL_REDIRECT = False
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -26,7 +30,9 @@ SECRET_KEY = 'y6kG2XL8lT9B8smqzvVzjF0gGpY3XnmVJd8pKlRwOpYTqsdO5D'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
  
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','0.0.0.0']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost','0.0.0.0']
+# ALLOWED_HOSTS = ['localhost', '0.0.0.0','127.0.0.1','192.168.0.10']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'campo',
-    'rest_framework'
+    'rest_framework',
+    "corsheaders",
+    'rest_framework_json_api'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +58,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://TU_IP_LOCAL:3000",  # Si tu frontend está en React
+#     "http://SU_IP:3000"
+# ]
+
+# CORS_ALLOW_ALL_ORIGINS = True
+
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -114,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Argentina/Buenos_Aires'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -129,3 +146,26 @@ STATIC_URL = '/static/'
 
 # Solo en producción, si estás usando un servidor web como Nginx, Django debería usar esta configuración
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework_json_api.parsers.JSONParser',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework_json_api.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'
+    ),
+    'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework_json_api.filters.QueryParameterValidationFilter',
+        'rest_framework_json_api.filters.OrderingFilter',
+        'rest_framework_json_api.django_filters.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+    ),
+    'SEARCH_PARAM': 'filter[search]',
+    'TEST_REQUEST_RENDERER_CLASSES': (
+        'rest_framework_json_api.renderers.JSONRenderer',
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'vnd.api+json'
+}

@@ -14,8 +14,6 @@ RUN chown -R myuser:myuser /home/myuser/app
 
 WORKDIR /home/myuser/app
 
-
-
 RUN pip install --upgrade pip
 
 # Set environment variables 
@@ -38,14 +36,25 @@ ENV PYTHONUNBUFFERED=1
 COPY --chown=myuser:myuser ./requirements.txt requirements.txt
 RUN pip install --no-cache-dir --user -r requirements.txt
 
+RUN pip install djangorestframework-jsonapi['django-filter']
+
 ENV PATH="/home/myuser/.local/bin:${PATH}"
 
+# copy entrypoint.sh
+COPY ./entrypoint.sh .
+RUN sed -i 's/\r$//g' /home/myuser/app/entrypoint.sh
+RUN chmod +x /home/myuser/app/entrypoint.sh
+
+# copy project
 COPY --chown=myuser:myuser . .
+
+# run entrypoint.sh
+ENTRYPOINT ["/home/myuser/app/entrypoint.sh"]
 
 
 
 # Expose the Django port
-EXPOSE 8000
+# EXPOSE 8000
  
 # Run Django’s development server
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"] <- SE EJECUTA EN docker-compose.yml

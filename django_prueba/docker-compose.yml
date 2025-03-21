@@ -13,6 +13,8 @@ services:
       # - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     env_file:
       - .env
+    networks:
+      - my_network
     
 
   django: 
@@ -34,6 +36,43 @@ services:
       - .env
     command: >
       bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    networks:
+      - my_network
+    volumes:
+      - ./campo/templates:/app/campo/templates  # Sincroniza la carpeta de templates
+      - ./campo/static:/app/static  # Sincroniza la carpeta de archivos estáticos
+  
+
+
+
+#   ngrok:
+#     image: ngrok/ngrok:latest
+#     restart: unless-stopped
+#     command:
+#       - "start"
+#       - "--all"
+#       - "--config"
+#       - "/etc/ngrok.yml"
+#     volumes:
+#       - ./ngrok.yml:/etc/ngrok.yml
+#     ports:
+#       - 4040:4040
+
+  front-end:
+    container_name: front-end
+    build: ./front-end
+    ports:
+      - "8080:80"
+    networks:
+      - my_network
+    depends_on:
+      - django
+    volumes:
+    - ./front-end:/app/front-end
+
+networks:
+  my_network:
+
+
 volumes:
   postgres_data:
-
