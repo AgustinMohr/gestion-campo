@@ -1,7 +1,7 @@
 services:
   postgresdb:
     image: postgres:17.1
-    container_name: postgres
+    container_name: postgresdb
     environment:
       POSTGRES_DB: $DATABASE_NAME
       POSTGRES_USER: $DATABASE_USERNAME
@@ -18,7 +18,7 @@ services:
     
 
   django: 
-    container_name: django-cont
+    container_name: django
     build: .
     depends_on:
       - postgresdb
