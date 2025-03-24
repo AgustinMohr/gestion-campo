@@ -1,0 +1,20 @@
+ENTORNO VIRTUAL
+Hay que moverse a la carpeta raiz (ruralia), dentro ejecutar:
+1) python -m venv venv
+        * crea entorno virtual
+2) venv\Scripts\activate
+        * activa entorno virtual
+3) pip install -r requirements.txt  # Instala todo en el entorno virtual
+        * instala dependencias que estén en requirements.txt
+
+
+
+
+ip publica al 18/3 00:39: 152.169.30.80
+ip local: 192.168.0.100
+
+authtoken ngrok: 2uNowXs9PivLWsMNaOGpPAQKLaR_7aPXXCDEpGhbe38awAYsz
+
+URL Estatica: https://coherent-shortly-maggot.ngrok-free.app
+
+Abrir servidor en Internet: ngrok http --url https://coherent-shortly-maggot.ngrok-free.app 8000

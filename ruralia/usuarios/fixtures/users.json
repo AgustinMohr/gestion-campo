@@ -1,0 +1,41 @@
+[
+    {
+        "model": "usuarios.usuario",
+        "pk": 1,
+        "fields": {
+            "username": "admin",
+            "password": "admin",
+            "is_superuser": true,
+            "is_staff": true,
+            "is_active": true,
+            "email": "admin@example.com",
+            "nombre_completo": "Administrador General"
+        }
+    },
+    {
+        "model": "usuarios.usuario",
+        "pk": 2,
+        "fields": {
+            "username": "usuario1",
+            "password": "usuario1",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "email": "usuario1@example.com",
+            "nombre_completo": "Usuario Uno"
+        }
+    },
+    {
+        "model": "usuarios.usuario",
+        "pk": 3,
+        "fields": {
+            "username": "usuario3",
+            "password": "pbkdf2_sha256$216000$abc$xyz",  
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "email": "usuario3@example.com"
+        }
+    }
+]
+
