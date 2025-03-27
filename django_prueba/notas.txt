@@ -1,8 +1,0 @@
-ip publica 18/3 00:39 152.169.30.80
-ip local 192.168.0.100
-
-authtoken ngrok: 2uNowXs9PivLWsMNaOGpPAQKLaR_7aPXXCDEpGhbe38awAYsz
-
-URL Estatica: https://coherent-shortly-maggot.ngrok-free.app
-
-ngrok http --url https://coherent-shortly-maggot.ngrok-free.app 8000
