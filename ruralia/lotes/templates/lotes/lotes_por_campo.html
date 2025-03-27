@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Lotes del Campo {{ campo.nombre }} | Ruralis{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- ENCABEZADO DEL CAMPO -->
+    <div class="card shadow-sm mb-4 border-success">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">🌾 Campo: <strong>{{ campo.nombre }}</strong></h4>
+        </div>
+        <div class="card-body">
+            <p><strong>📍 Ubicación:</strong> {{ campo.ubicacion }}</p>
+            <p><strong>🌱 Total de lotes:</strong> {{ lotes|length }}</p>
+        </div>
+    </div>
+
+    <!-- ACCIONES -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">🗂️ Lotes registrados</h5>
+        <a href="{% url 'crear_lote' %}?campo_id={{ campo.id }}" class="btn btn-primary">
+            + Crear nuevo lote
+        </a>
+    </div>
+
+    <!-- TABLA DE LOTES -->
+    {% if lotes %}
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Superficie (ha)</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lote in lotes %}
+                    <tr>
+                        <td>{{ lote.nombre }}</td>
+                        <td>{{ lote.superficie }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'detalle_lote' lote.id %}" class="btn btn-sm btn-info">📋 Detalle</a>
+                            <a href="{% url 'editar_lote' lote.id %}" class="btn btn-sm btn-warning">✏️ Editar</a>
+                            <a href="{% url 'eliminar_lote' lote.id %}" class="btn btn-sm btn-danger"
+                               onclick="return confirm('¿Eliminar este lote?')">🗑️ Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-warning mt-3">⚠️ Este campo no tiene lotes registrados aún.</div>
+    {% endif %}
+
+    <!-- VOLVER -->
+    <div class="mt-4">
+        <a href="{% url 'lista_campos' %}" class="btn btn-outline-secondary">← Volver a Establecimientos</a>
+    </div>
+</div>
+{% endblock %}

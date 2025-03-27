@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card border-danger shadow-sm">
+        <div class="card-body">
+            <h2 class="text-danger">¿Estás seguro que querés eliminar este campo?</h2>
+            <p class="mb-4"><strong>{{ campo.nombre }}</strong> – {{ campo.ubicacion }}</p>
+
+            <form method="post" action="{% url 'eliminar_campo' campo.id %}">
+                {% csrf_token %}
+                <a href="{% url 'lista_campos' %}" class="btn btn-secondary me-2">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

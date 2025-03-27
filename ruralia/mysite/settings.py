@@ -66,8 +66,11 @@ INSTALLED_APPS = [
     'agroquimicos',
     'aplicacionesAgroquimicos',
     'lotes',
-    'app_principal',
     'rest_framework_json_api',
+    'app_principal',
+    'establecimientos',
+    'insumos',
+    'labores',
 ]
 
 MIDDLEWARE = [
@@ -108,9 +111,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'mysite.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

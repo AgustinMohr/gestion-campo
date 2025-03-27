@@ -4,7 +4,7 @@ from .forms import LoginForm, RegistroForm
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect('app')  # Si ya está logueado, lo enviamos a la app principal
+        return redirect('dashboard')  # Si ya está logueado, lo enviamos a la app principal
 
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
