@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Editar Lote | Ruralis{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0">✏️ Editar Lote: <strong>{{ lote.nombre }}</strong></h4>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'editar_lote' lote.id %}">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="nombre" class="form-label">Nombre del Lote</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ lote.nombre }}" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="superficie" class="form-label">Superficie (ha)</label>
+                        <input type="number" step="0.01" class="form-control" id="superficie" name="superficie" value="{{ lote.superficie }}" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="campo" class="form-label">Campo</label>
+                    <select class="form-select" id="campo" name="campo" required>
+                        {% for campo_item in campos %}
+                            <option value="{{ campo_item.id }}" {% if campo_item.id == lote.campo.id %}selected{% endif %}>
+                                {{ campo_item.nombre }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'lotes_por_campo' lote.campo.id %}" class="btn btn-outline-secondary">← Cancelar</a>
+                    <button type="submit" class="btn btn-success">💾 Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

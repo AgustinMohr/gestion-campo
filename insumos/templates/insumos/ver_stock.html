@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Stock de Insumos</h2>
+    <div class="mb-3">
+        <input type="text" class="form-control" id="search" placeholder="Buscar insumo...">
+    </div>
+    <ul class="list-group">
+        {% for insumo in insumos %}
+        <li class="list-group-item">
+            <h5>{{ insumo.nombre }}</h5>
+            <p>{{ insumo.descripcion }}</p>
+            <p><strong>Stock:</strong> {{ insumo.cantidad_stock }} unidades</p>
+            <p><strong>Precio unitario:</strong> ${{ insumo.precio_unitario }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+    // Filtro de búsqueda
+    document.getElementById('search').addEventListener('input', function() {
+        var query = this.value.toLowerCase();
+        var items = document.querySelectorAll('.list-group-item');
+        items.forEach(function(item) {
+            var text = item.textContent.toLowerCase();
+            if (text.indexOf(query) === -1) {
+                item.style.display = 'none';
+            } else {
+                item.style.display = 'block';
+            }
+        });
+    });
+</script>
+{% endblock %}

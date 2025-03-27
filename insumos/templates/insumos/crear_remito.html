@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Crear Remito | Ruralis{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Crear Remito</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="numero_remito" class="form-label">Número de Remito</label>
+            {{ remito_form.numero_remito }}
+        </div>
+        
+        <div class="mb-3">
+            <label for="proveedor" class="form-label">Proveedor</label>
+            {{ remito_form.proveedor }}
+        </div>
+        
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            {{ remito_form.fecha }}
+        </div>
+        
+        <div class="mb-3">
+            <label for="insumos" class="form-label">Seleccionar Insumos</label>
+            {{ remito_form.insumos }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar Remito</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Ver Remito | Ruralis{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Detalle del Remito</h2>
+
+    <p><strong>Número de Remito:</strong> {{ remito.numero_remito }}</p>
+    <p><strong>Proveedor:</strong> {{ remito.proveedor }}</p>
+    <p><strong>Fecha:</strong> {{ remito.fecha }}</p>
+
+    <h4>Insumos:</h4>
+    <ul class="list-group">
+        {% for insumo in remito.insumos.all %}
+        <li class="list-group-item">{{ insumo.nombre }} - ${{ insumo.precio }} ({{ insumo.unidad }})</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Ver Insumos | Ruralis{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Insumos Registrados</h2>
+    
+    <ul class="list-group">
+        {% for insumo in insumos %}
+        <li class="list-group-item">
+            <strong>{{ insumo.nombre }}</strong> - {{ insumo.descripcion }} - ${{ insumo.precio }} ({{ insumo.unidad }})
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

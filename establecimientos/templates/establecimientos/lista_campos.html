@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">🌿 Establecimientos</h2>
+        <a href="{% url 'crear_campo' %}" class="btn btn-primary">+ Crear nuevo campo</a>
+    </div>
+
+    <!-- Filtro de búsqueda -->
+    <form method="get" class="mb-3">
+        <input type="text" name="q" class="form-control" placeholder="Buscar establecimiento..." value="{{ request.GET.q }}">
+    </form>
+
+    {% if campos %}
+    <div class="accordion" id="accordionCampos">
+        {% for campo in campos %}
+        <div class="accordion-item mb-2 border border-success shadow-sm">
+            <h2 class="accordion-header" id="heading{{ campo.id }}">
+                <button class="accordion-button collapsed bg-success bg-opacity-10 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ campo.id }}" aria-expanded="false" aria-controls="collapse{{ campo.id }}">
+                    🌾 {{ campo.nombre }} <span class="ms-auto badge bg-secondary">{{ campo.lotes.count }} lotes</span>
+                </button>
+            </h2>
+            <div id="collapse{{ campo.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ campo.id }}" data-bs-parent="#accordionCampos">
+                <div class="accordion-body">
+                    <p class="mb-1"><strong>📍 Ubicación:</strong> {{ campo.ubicacion }}</p>
+
+                    {% if campo.lotes.all %}
+                    <ul class="list-group mb-3">
+                        {% for lote in campo.lotes.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            🌱 {{ lote.nombre }} <span class="badge bg-info text-dark">{{ lote.superficie }} ha</span>
+                            <a href="{% url 'detalle_lote' lote.id %}" class="btn btn-sm btn-outline-info ms-2">Ver detalle</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <div class="text-muted">Este campo no tiene lotes aún.</div>
+                    {% endif %}
+
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'editar_campo' campo.id %}" class="btn btn-warning btn-sm">✏️ Editar Campo</a>
+                        <a href="{% url 'eliminar_campo' campo.id %}" class="btn btn-danger btn-sm">🗑️ Eliminar Campo</a>
+                        <a href="{% url 'crear_lote' %}?campo_id={{ campo.id }}" class="btn btn-success btn-sm">+ Agregar Lote</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p class="text-muted">No hay campos registrados aún.</p>
+    {% endif %}
+</div>
+{% endblock %}
