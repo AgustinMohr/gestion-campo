@@ -10,13 +10,16 @@
     <div class="card p-4">
         <h2 class="text-center">Regístrate en Ruralia</h2>
         <form method="post">
+
             {% csrf_token %}
-            {{ form.as_p }}
+            
+            {{ form.as_p }} 
             <button type="submit" class="btn btn-primary w-100">Registrarse</button>
         </form>
         <p class="text-center mt-3">
             ¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a>
         </p>
     </div>
+    
 </body>
 </html>

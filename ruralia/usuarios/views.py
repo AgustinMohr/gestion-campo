@@ -4,14 +4,14 @@ from .forms import LoginForm, RegistroForm
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect('dashboard')  # Si ya está logueado, lo enviamos a la app principal
+        return redirect('app')  # Si ya está logueado, lo enviamos a la app principal
 
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('dashboard')  # Redirige a la app
+            return redirect('app')  # Redirige a la app
     else:
         form = LoginForm()
 
@@ -27,7 +27,9 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('dashboard')
+            return redirect('app')
+        else:
+            print(form.errors)  # Esto imprimirá los errores en la consola del servidor
     else:
         form = RegistroForm()
     

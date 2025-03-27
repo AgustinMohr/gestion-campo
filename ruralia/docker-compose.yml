@@ -34,8 +34,10 @@ services:
       DATABASE_PORT: ${DATABASE_PORT}
     env_file:
       - .env
+    # command: >
+    #   bash -c "python manage.py runserver 0.0.0.0:8000"
     command: >
-      bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+      bash -c "python create_superuser.py"
     networks:
       - my_network
     volumes:

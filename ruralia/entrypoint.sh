@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$DATABASE_NAME" = "postgres" ]
+if [ "$DATABASE_NAME" = "ruralisdb" ]
 then
     echo "Waiting for postgres..."
 
@@ -11,7 +11,18 @@ then
     echo "PostgreSQL started"
 fi
 
-python manage.py flush --no-input
+
 python manage.py migrate
+
+python manage.py loaddata users
+
+python create_superuser.py
+
+python manage.py runserver 0.0.0.0:8000
+
+
+# python manage.py shell "from usuarios.models import Usuario; Usuario.objects.create_superuser('admin', 'admin@example.com', 'admin')"
+# python manage.py flush --no-input
+
 
 exec "$@"

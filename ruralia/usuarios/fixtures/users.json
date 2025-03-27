@@ -3,12 +3,12 @@
         "model": "usuarios.usuario",
         "pk": 1,
         "fields": {
-            "username": "admin",
-            "password": "admin",
+            "username": "admin1",
+            "password": "pass1",
             "is_superuser": true,
             "is_staff": true,
             "is_active": true,
-            "email": "admin@example.com",
+            "email": "admin1@example.com",
             "nombre_completo": "Administrador General"
         }
     },

@@ -39,9 +39,11 @@
             <!-- Contenido principal -->
             <div class="col-md-9">
                 <h2>Ruralia App</h2>
-                <p><strong>Fecha y hora:</strong> {% now "D d M Y H:i" %}</p>
+                <p><strong>Fecha:</strong> {% now "d/m/Y" %}</p>
+                <p><strong>Hora:</strong> {% now "H:i" %}</p>                
                 <p><strong>Usuario:</strong> {{ request.user.username }}</p>
-                <a href="{% url 'index' %}" class="btn btn-secondary">Volver al inicio</a>
+                <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar Sesión</a>
+                <a href="{% url 'app' %}" class="btn btn-secondary">Volver al inicio</a>
                 <div class="mt-5">
                     <!-- Aquí agregarás más contenido de funciones -->
                 </div>
