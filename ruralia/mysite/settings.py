@@ -16,6 +16,9 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "/"
+
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Borra la sesión al cerrar el navegador
 SESSION_COOKIE_AGE = 3600  # Expira en 1 hora (puedes ajustar)
@@ -36,11 +39,15 @@ SECRET_KEY = 'y6kG2XL8lT9B8smqzvVzjF0gGpY3XnmVJd8pKlRwOpYTqsdO5D'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
  
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost','0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # ALLOWED_HOSTS = ['localhost', '0.0.0.0','127.0.0.1','192.168.0.10']
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
+
+DJANGO_SUPERUSER_PASSWORD="admin"
+DJANGO_SUPERUSER_USERNAME="admin"
+DJANGO_SUPERUSER_EMAIL="admin@hotmail.com"
 
 
 # Application definition
@@ -111,7 +118,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME', 'postgresdb'),
+        'NAME': os.getenv('DATABASE_NAME', 'ruralisdb'),
         'USER': os.getenv('DATABASE_USERNAME', 'postgres'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
         'HOST': os.getenv('DATABASE_HOST','postgresdb'),
@@ -144,7 +151,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
+
 
 USE_I18N = True
 
@@ -155,10 +163,10 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Archivos estáticos
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Solo en producción, si estás usando un servidor web como Nginx, Django debería usar esta configuración
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',

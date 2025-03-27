@@ -2,7 +2,7 @@
 
 FROM python:3.13
 
-RUN apt-get update && apt-get install -y postgresql-client
+RUN apt-get update && apt-get install -y postgresql-client netcat-openbsd
 
 RUN useradd -m myuser
 USER myuser
@@ -10,6 +10,7 @@ WORKDIR /myuser
 
 RUN mkdir /myuser/app
 
+#Cambia el propietario del directorio a myuser para asegurar permisos correctos.
 RUN chown -R myuser:myuser /myuser/app
 
 WORKDIR /myuser/app
@@ -48,6 +49,8 @@ RUN chmod +x /myuser/app/entrypoint.sh
 
 # copy project
 COPY --chown=myuser:myuser . .
+
+# RUN python /myuser/app/create_superuser.py
 
 # run entrypoint.sh
 ENTRYPOINT ["/myuser/app/entrypoint.sh"]

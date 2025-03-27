@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('usuarios/', include('usuarios.urls')),  # Importamos las URLs de la app usuarios
+    path('', include('usuarios.urls')),  # Importamos las URLs de la app usuarios
     path('', lambda request: redirect('login')),  # Redirige la página principal al login
+    path('', include('app_principal.urls')),  # Dashboard y funcionalidades
 ]
